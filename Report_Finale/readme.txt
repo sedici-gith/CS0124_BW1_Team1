@@ -1,0 +1,1 @@
+Report totale che include i risultati trovati e le contromisure da adottare per ridurre eventuali rischi (ad esempio, cosa consigliereste ad un impiegato che utilizza admin e password come credenziali?).
