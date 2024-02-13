@@ -7,18 +7,20 @@ metodi = ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS']
 if porta == "":
     porta = 80
 
-for metodo in metodi:
-    try:
-
+def scansione():
+    for metodo in metodi:
         connection = http.client.HTTPConnection(IP, porta)
         connection.request(metodo, "/")
         risposta = connection.getresponse()
         if risposta.status < 400:
             print(f"metodo {metodo} abilitato")
-        elif risposta.status > 400:
+        else:
             print(f"metodo {metodo} disabilitato")
-    except ConnectionRefusedError: 
-        print(f"connessione fallita")
+    print(IP, "/", porta)
     
-    connection.close()
+try: 
+    scansione()
 
+except ConnectionRefusedError:
+    print("connessione fallita")
+    print(IP, "/", porta)
