@@ -2,7 +2,7 @@ import socket
 
 def main():
 
-    obiettivo_ip =  input("Inserire l'indirizzo IP da sannerizzare: ") #chiediamo all'utente di inserire l'idirizzo IP
+    obiettivo_ip =  input("Inserire l'indirizzo IP da scannerizzare: ") #chiediamo all'utente di inserire l'idirizzo IP
     intervallo_porte = input("Inserisci il range di porte da scannerizzare (es:0-65535): ") #chiediamo all'utente di inserire il range di porte
 
     porta_bassa = int(intervallo_porte.split("-")[0]) #estrae i valori minimi delle porte dall'input dell'utente
