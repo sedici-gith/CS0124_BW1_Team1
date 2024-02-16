@@ -27,6 +27,6 @@ def scansione(IP, porta, percorso, metodi):    #rende metodo tutto quello scritt
 		print("connessione fallita")
 		print(IP, "/", porta, "/", percorso)
     
-if __name__ == "__main__":   #rende metodo tutto il codice
+if __name__ == "__main__":   #rende modulo tutto il codice
     main()
 
